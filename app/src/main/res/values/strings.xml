@@ -22,4 +22,5 @@
     <string name="snackbar_save_video_failed">Save video failed</string>
     <string name="button_open_instagram">Open Instagram</string>
     <string name="button_load_it">Load It</string>
+    <string name="string_information">Information</string>
 </resources>

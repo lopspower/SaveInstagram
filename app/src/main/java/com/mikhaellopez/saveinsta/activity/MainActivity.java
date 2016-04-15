@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +45,7 @@ import com.mikhaellopez.saveinsta.model.InstaMedia;
 import com.mikhaellopez.saveinsta.model.InstaOwner;
 import com.mikhaellopez.saveinsta.utils.DominantImageColor;
 import com.mikhaellopez.saveinsta.utils.PermissionsUtils;
+import com.mikhaellopez.saveinsta.utils.files.FileUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -61,8 +63,7 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
- * Copyright (C) 2016 Mikhael LOPEZ
- * Licensed under the Apache License Version 2.0
+ * @author Pratik Butani
  */
 public class MainActivity extends ABaseActivity {
 
@@ -91,7 +92,7 @@ public class MainActivity extends ABaseActivity {
     protected View mLayoutInput;
     @Bind(R.id.edit_insta_url)
     protected EditText editInstaUrl;
-
+    Context mContext;
     private MenuItem mMenuItem;
     private String mUserName;
     private String mIdInstaContent;
@@ -104,6 +105,7 @@ public class MainActivity extends ABaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = getApplicationContext();
         mCurrentDominantColor = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
     }
 
@@ -185,7 +187,7 @@ public class MainActivity extends ABaseActivity {
     @OnClick(R.id.btn_load_it)
     protected void onClickLoadIt() {
         String editVal = editInstaUrl.getText().toString();
-        if (editVal != null) {
+        if (!editVal.isEmpty()) {
             if (editVal.contains("https://www.instagram.com/p/")) {
                 // Clear current Url Remove
                 mCurrentUrlRemove = null;
@@ -235,7 +237,7 @@ public class MainActivity extends ABaseActivity {
                     URL url = new URL(instaUrl);
                     InputStream is = url.openStream();
                     int ptr;
-                    StringBuffer buffer = new StringBuffer();
+                    StringBuilder buffer = new StringBuilder();
                     while ((ptr = is.read()) != -1) {
                         buffer.append((char) ptr);
                     }
@@ -259,7 +261,7 @@ public class MainActivity extends ABaseActivity {
 
                 } catch (Exception ex) {
                     // Send Fail
-                    EventBus.getDefault().post(new EventInstaPictureLoad(false));
+                    EventBus.getDefault().post(new EventInstaPictureLoad());
                 }
 
             }
@@ -295,6 +297,7 @@ public class MainActivity extends ABaseActivity {
                         public void run() {
                             // Load Image to View
                             Picasso.with(MainActivity.this).load(eventInstaPictureLoad.getUrlImage())
+                                    .error(R.drawable.no_picture)
                                     .into(mImageToDownload, new Callback() {
                                         @Override
                                         public void onSuccess() {
@@ -342,7 +345,7 @@ public class MainActivity extends ABaseActivity {
         if (!mIsVideo) {
             // Save Picture
             Bitmap bitmap = ((BitmapDrawable) mImageToDownload.getDrawable()).getBitmap();
-            if (downloadPicture(bitmap, mIdInstaContent + ".jpg")) {
+            if (FileUtils.downloadPicture(mContext, bitmap, mIdInstaContent + ".jpg")) {
                 Snackbar.make(mCoordinatorLayout, R.string.snackbar_photo_saved, Snackbar.LENGTH_SHORT).show();
             } else {
                 Snackbar.make(mCoordinatorLayout, R.string.snackbar_save_photo_failed, Snackbar.LENGTH_SHORT).show();
@@ -356,31 +359,6 @@ public class MainActivity extends ABaseActivity {
 
             startDownloadVideo(mUrlVideo, mIdInstaContent + ".mp4");
         }
-    }
-
-    private boolean downloadPicture(Bitmap bitmap, String fileName) {
-        boolean result = false;
-        OutputStream output = null;
-        try {
-            File root = new File(Environment.getExternalStorageDirectory() + File.separator + getResources().getString(R.string.app_name) + File.separator);
-            root.mkdirs();
-            File sdImageMainDirectory = new File(root, fileName);
-            output = new FileOutputStream(sdImageMainDirectory);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
-            output.flush();
-            result = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (null != output) {
-                try {
-                    output.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return result;
     }
 
     private void startDownloadVideo(final String urlVideo, final String fileName) {
@@ -410,8 +388,8 @@ public class MainActivity extends ABaseActivity {
         InputStream input = null;
         try {
             File root = new File(Environment.getExternalStorageDirectory() + File.separator + getResources().getString(R.string.app_name) + File.separator);
-            root.mkdirs();
-            File sdImageMainDirectory = new File(root, fileName);
+            boolean b = root.mkdirs();
+            File sdImageMainDirectory = b ? new File(root, fileName) : null;
 
             // Download Video
             URL url = new URL(urlVideo);
@@ -567,11 +545,7 @@ public class MainActivity extends ABaseActivity {
 
     public boolean isColorDark(int color) {
         double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
-        if (darkness < 0.5) {
-            return false; // It's a light color
-        } else {
-            return true; // It's a dark color
-        }
+        return darkness > 0.5;
     }
     //endregion
 
@@ -623,7 +597,7 @@ public class MainActivity extends ABaseActivity {
 
     //region Permission
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PermissionsUtils.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:

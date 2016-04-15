@@ -1,7 +1,6 @@
 package com.mikhaellopez.saveinsta.model;
 
-/**
- * Created by Mikhael LOPEZ on 11/01/16.
+/** Created by Pratik Butani
  */
 public class EventInstaPictureLoad {
 
@@ -24,7 +23,7 @@ public class EventInstaPictureLoad {
         this.urlVideo = urlVideo;
     }
 
-    public EventInstaPictureLoad(boolean loadWell) {
+    public EventInstaPictureLoad() {
         this.loadWell = false;
     }
 

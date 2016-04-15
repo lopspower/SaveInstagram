@@ -13,7 +13,7 @@ import de.greenrobot.event.EventBus;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
- * Created by Mikhael LOPEZ on 04/01/16.
+ * Created by Pratik Butani
  */
 public abstract class ABaseActivity extends AppCompatActivity {
 
@@ -27,7 +27,9 @@ public abstract class ABaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Init ToolBar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("");
+        if (mToolbar != null) {
+            mToolbar.setTitle("");
+        }
         setSupportActionBar(mToolbar);
     }
 

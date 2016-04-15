@@ -1,7 +1,7 @@
 package com.mikhaellopez.saveinsta.model;
 
 /**
- * Created by Mikhael LOPEZ on 14/01/16.
+ * Created by Pratik Butani
  */
 public class EventChangeDominantColor {
 }
