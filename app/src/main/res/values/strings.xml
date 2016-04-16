@@ -1,26 +1,29 @@
 <resources>
-    <string name="app_name">SaveInsta</string>
-    <string name="edit_text_hint">Past Instagram photo/video URL here</string>
+    <string name="app_name">InstaSaver</string>
+    <string name="share_text">Now Its Very Easy to Save Instagram Photos using InstaSaver. Download and Share: https://play.google.com/store/apps/details?id=com.androidbuts.instasaver </string>
 
     <string name="info_message">
         3 Steps to download photo/video from Instagram\n\n
         1. Open your Instagram, choose Copy Share URL on photo/video you want to save\n\n
-        2. Open SaveInstagram and let it do the magic\n\n
-        3. Back to SaveInstagram, download Photo/Video you love by click to Save button at the bottom right of SaveInstagram, or click to Close button at the top right to remove. Open Gallery to see the result!
+        2. Open InstaSaver and let it do the magic\n\n
+        3. Back to InstaSaver, download Photo/Video you love by click to Save button at the bottom right of SaveInstagram, or click to Close button at the top right to remove. Open Gallery to see the result!
     </string>
+
+    <string name="edit_text_hint">Paste Instagram photo/video URL here</string>
 
     <string name="dialog_button_rate_app">RATE THIS APP</string>
     <string name="snackbar_no_market">You don\'t have Market App</string>
     <string name="dialog_message_why_permission">You need to enable this permission to download the picture</string>
     <string name="snackbar_no_instagram">You don\'t have Instagram</string>
     <string name="snackbar_no_insta_url">Is not an Instagram photo/video URL</string>
-    <string name="snackbar_input_empty">Input Empty</string>
+    <string name="snackbar_input_empty">URL Empty</string>
     <string name="snackbar_load_photo_failed">Load photo failed</string>
-    <string name="snackbar_photo_saved">Photo saved!</string>
+    <string name="snackbar_photo_saved">Photo saved successfully!</string>
     <string name="snackbar_save_photo_failed">Save photo failed</string>
-    <string name="snackbar_video_saved">Video saved!</string>
+    <string name="snackbar_video_saved">Video saved successfully!</string>
     <string name="snackbar_save_video_failed">Save video failed</string>
     <string name="button_open_instagram">Open Instagram</string>
     <string name="button_load_it">Load It</string>
     <string name="string_information">Information</string>
+    <string name="string_share_app">Share App</string>
 </resources>

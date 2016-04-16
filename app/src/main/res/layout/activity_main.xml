@@ -113,8 +113,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:clickable="true"
                     android:layout_margin="20dp"
-                    android:visibility="visible"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:visibility="invisible"
                     card_view:cardCornerRadius="4dp">
 
                     <LinearLayout
