@@ -16,7 +16,7 @@
     <string name="dialog_message_why_permission">You need to enable this permission to download the picture</string>
     <string name="snackbar_no_instagram">You don\'t have Instagram</string>
     <string name="snackbar_no_insta_url">Is not an Instagram photo/video URL</string>
-    <string name="snackbar_input_empty">URL Empty</string>
+    <string name="snackbar_input_empty">URL looks like empty.</string>
     <string name="snackbar_load_photo_failed">Load photo failed</string>
     <string name="snackbar_photo_saved">Photo saved successfully!</string>
     <string name="snackbar_save_photo_failed">Save photo failed</string>
