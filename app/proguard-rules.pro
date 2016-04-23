@@ -28,9 +28,16 @@
 -keep public class android.support.design.R$* { *; }
 
 #Butterknife
--keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
+-dontwarn butterknife.Views$InjectViewProcessor
+-dontwarn butterknife.Views$BindViewProcessor
+
+-keep class butterknife.** { *; }
 -keep class **$$ViewBinder { *; }
+-keep class **$$ViewInjector { *; }
+
+-keepnames class * { @butterknife.InjectView *;}
+-keepnames class * { @butterknife.BindView *;}
 
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
@@ -39,3 +46,38 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+
+#calligraphy
+-keep class uk.co.chrisjenx.calligraphy.* { *; }
+-keep class uk.co.chrisjenx.calligraphy.*$* { *; }
+
+#EventBus
+-keepclassmembers class ** {
+   public void onEvent*(**);
+}
+
+#### -- Picasso --
+-dontwarn com.squareup.picasso.**
+
+#### -- OkHttp --
+-dontwarn com.squareup.okhttp.**
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+
+#### -- Apache Commons --
+-dontwarn org.apache.commons.logging.**
+
+##GSON
+# Gson uses generic type information stored in a class file when working with fields. Proguard
+# removes such information by default, so configure it to keep all of it.
+-keepattributes Signature
+
+# For using GSON @Expose annotation
+-keepattributes *Annotation*
+
+# Gson specific classes
+-keep class sun.misc.Unsafe { *; }
+#-keep class com.google.gson.stream.** { *; }
+
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.androidbuts.saveinsta.model.** { *; }

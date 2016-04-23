@@ -254,6 +254,7 @@ public class MainActivity extends ABaseActivity {
 
                     InstaData instaData = new Gson().fromJson(json, InstaData.class);
                     InstaMedia instaMedia = instaData.getEntryData().getPostPage().get(0).getMedia();
+
                     InstaOwner instaOwner = instaMedia.getOwner();
                     String userName = instaOwner.getUsername();
                     String fullName = instaOwner.getFullname();
@@ -614,7 +615,7 @@ public class MainActivity extends ABaseActivity {
     }
     //endregion
 
-    //region Permission
+    //Region Permission
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
