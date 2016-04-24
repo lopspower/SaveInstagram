@@ -39,3 +39,7 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+
+
+-keep class uk.co.chrisjenx.calligraphy.* { *; }
+-keep class uk.co.chrisjenx.calligraphy.*$* { *; }
