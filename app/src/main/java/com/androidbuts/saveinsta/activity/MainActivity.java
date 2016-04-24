@@ -95,6 +95,7 @@ public class MainActivity extends ABaseActivity {
 
     Context mContext;
     int mGlobalToColor;
+    boolean doubleBackToExitPressedOnce = false;
     private String mUserName;
     private String mIdInstaContent;
     private boolean mIsVideo;
@@ -207,6 +208,7 @@ public class MainActivity extends ABaseActivity {
             Snackbar.make(mCoordinatorLayout, R.string.snackbar_input_empty, Snackbar.LENGTH_SHORT).show();
         }
     }
+    //endregion
 
     @OnClick({R.id.image_action_play, R.id.video_to_download})
     protected void onClickPlayVideo() {
@@ -226,7 +228,6 @@ public class MainActivity extends ABaseActivity {
             mVideoToDownload.stopPlayback();
         }
     }
-    //endregion
 
     //region Load Image & User information
     private void loadImageData(final String instaUrl) {
@@ -253,6 +254,7 @@ public class MainActivity extends ABaseActivity {
 
                     InstaData instaData = new Gson().fromJson(json, InstaData.class);
                     InstaMedia instaMedia = instaData.getEntryData().getPostPage().get(0).getMedia();
+
                     InstaOwner instaOwner = instaMedia.getOwner();
                     String userName = instaOwner.getUsername();
                     String fullName = instaOwner.getFullname();
@@ -268,6 +270,7 @@ public class MainActivity extends ABaseActivity {
             }
         }).start();
     }
+    //endregion
 
     public void onEventMainThread(final EventInstaPictureLoad eventInstaPictureLoad) {
         if (eventInstaPictureLoad != null && eventInstaPictureLoad.isLoadWell()) {
@@ -327,7 +330,6 @@ public class MainActivity extends ABaseActivity {
             Snackbar.make(mCoordinatorLayout, R.string.snackbar_load_photo_failed, Snackbar.LENGTH_SHORT).show();
         }
     }
-    //endregion
 
     //region Private Method
     private String pastClipboard() {
@@ -431,6 +433,7 @@ public class MainActivity extends ABaseActivity {
         }
         return result;
     }
+    //endregion
 
     private void closeKeyboard() {
         // Check if no view has focus:
@@ -440,7 +443,6 @@ public class MainActivity extends ABaseActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-    //endregion
 
     //region Theme & Color
     public void onEventMainThread(EventChangeDominantColor eventChangeDominantColor) {
@@ -541,13 +543,12 @@ public class MainActivity extends ABaseActivity {
         hsv[2] *= 0.8f; // value component
         return Color.HSVToColor(hsv);
     }
+    //endregion
 
     public boolean isColorDark(int color) {
         double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
         return darkness > 0.5;
     }
-    //endregion
-
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -566,6 +567,7 @@ public class MainActivity extends ABaseActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    //endregion
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -613,7 +615,7 @@ public class MainActivity extends ABaseActivity {
     }
     //endregion
 
-    //region Permission
+    //Region Permission
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -627,9 +629,6 @@ public class MainActivity extends ABaseActivity {
                 break;
         }
     }
-    //endregion
-
-    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
@@ -645,7 +644,7 @@ public class MainActivity extends ABaseActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }

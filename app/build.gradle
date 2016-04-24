@@ -14,14 +14,11 @@ android {
         release {
             minifyEnabled true
             zipAlignEnabled true
-            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
         debug {
-            minifyEnabled true
-            zipAlignEnabled true
-            useProguard true
+            minifyEnabled false
+            zipAlignEnabled false
         }
     }
     productFlavors {

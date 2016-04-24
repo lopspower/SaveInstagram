@@ -76,7 +76,7 @@
 
                         <Button
                             android:id="@+id/btn_open_insta"
-                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            style="@style/Base.TextAppearance.AppCompat.Large"
                             fontPath="fonts/billabong.ttf"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
 
                         <Button
                             android:id="@+id/btn_load_it"
-                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            style="@style/Base.TextAppearance.AppCompat.Large"
                             fontPath="fonts/billabong.ttf"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

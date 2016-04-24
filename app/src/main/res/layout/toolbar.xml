@@ -13,14 +13,14 @@
 
         <TextView
             android:id="@+id/toolbar_title"
+            fontPath="fonts/billabong.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:text="@string/app_name"
             android:textColor="@android:color/white"
-            android:textSize="30sp"
-            android:layout_marginTop="10dp"
-            fontPath="fonts/billabong.ttf"/>
+            android:textSize="32dp" />
 
     </android.support.v7.widget.Toolbar>
 

@@ -21,14 +21,15 @@ public class FileUtils {
         OutputStream output = null;
         try {
             File root = new File(Environment.getExternalStorageDirectory() + File.separator + mContext.getResources().getString(R.string.app_name) + File.separator);
-            boolean b = root.mkdirs();
 
-            if (b) {
-                File sdImageMainDirectory = new File(root, fileName);
-                output = new FileOutputStream(sdImageMainDirectory);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
-                output.flush();
-            }
+            if (!root.exists())
+                root.mkdirs();
+
+            File sdImageMainDirectory = new File(root, fileName);
+            output = new FileOutputStream(sdImageMainDirectory);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
+            output.flush();
+
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
